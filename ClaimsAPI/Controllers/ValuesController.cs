@@ -28,7 +28,7 @@ namespace ClaimsAPI.Controllers
 
         // GET api/values/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Claim>> Get(int id)
+        public async Task<ActionResult<CrawfordClaim>> Get(int id)
         {
             var claim = await _context.Claims.FirstOrDefaultAsync(x=>x.Id==id);
             return Ok(claim);

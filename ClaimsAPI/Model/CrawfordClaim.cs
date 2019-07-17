@@ -1,6 +1,6 @@
-namespace ClaimsAPI.Model
+﻿namespace ClaimsAPI.Model
 {
-    public class Claim
+    public class CrawfordClaim
     {
         public int Id { get; set; }
         public string ClaimNumber { get; set; }
