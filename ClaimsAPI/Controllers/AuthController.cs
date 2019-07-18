@@ -27,7 +27,6 @@ namespace ClaimsAPI.Controllers
         public async Task<IActionResult> Register(UserForRegisterDto userForRegisterDto)
         {
             //validate request
-            userForRegisterDto.UserName = userForRegisterDto.UserName.ToLower();
             if (await _authRepository.UserExists(userForRegisterDto.UserName))
             {
                 return BadRequest("Username already exists");

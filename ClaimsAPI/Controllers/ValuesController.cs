@@ -4,11 +4,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using ClaimsAPI.Data;
 using ClaimsAPI.Model;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace ClaimsAPI.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ValuesController : ControllerBase
@@ -19,6 +21,7 @@ namespace ClaimsAPI.Controllers
             _context = context;
         }
         // GET api/values
+        [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> GetClaims()
         {
@@ -27,6 +30,7 @@ namespace ClaimsAPI.Controllers
         }
 
         // GET api/values/5
+        [AllowAnonymous]
         [HttpGet("{id}")]
         public async Task<ActionResult<CrawfordClaim>> Get(int id)
         {

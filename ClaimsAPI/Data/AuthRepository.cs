@@ -15,7 +15,7 @@ namespace ClaimsAPI.Data
         }
         public async Task<User> Login(string username, string password)
         {
-            var user = await _context.Users.FirstOrDefaultAsync(x=>x.Username==username);
+            var user = await _context.Users.FirstOrDefaultAsync(x=>x.Username.ToLower()==username.ToLower());
             if(user == null){
                 return null;
             }
@@ -40,7 +40,7 @@ namespace ClaimsAPI.Data
 
         public async Task<bool> UserExists(string username)
         {
-            if(await _context.Users.AnyAsync(x=>x.Username==username)){
+            if(await _context.Users.AnyAsync(x=>x.Username.ToLower()==username.ToLower())){
                 return true;
             }
             return false;
@@ -58,9 +58,9 @@ namespace ClaimsAPI.Data
         private bool VerifyPasswordHash(string password, byte[] passwordHash, byte[] passwordSalt)
         {
            using( var hmac = new System.Security.Cryptography.HMACSHA512(passwordSalt)){
-              var computerHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
-              for(int i=0;i<computerHash.Length;i++){
-                  if(computerHash[i]!=passwordHash[i])
+              var computedHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
+              for(int i=0;i<computedHash.Length;i++){
+                  if(computedHash[i]!=passwordHash[i])
                   {
                       return false;
                   }

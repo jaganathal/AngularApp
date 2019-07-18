@@ -2,19 +2,24 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
-  selector: 'app-claim',
-  templateUrl: './claim.component.html',
-  styleUrls: ['./claim.component.scss']
+  selector: 'app-home',
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.scss']
 })
-export class ClaimComponent implements OnInit {
-  values: any ;
+export class HomeComponent implements OnInit {
+  registerMode = false;
   constructor(private http: HttpClient) { }
-
+  values: any;
   ngOnInit() {
     this.getValues();
   }
-
+  registerToggle() {
+    this.registerMode = true;
+  }
   getValues() {
     this.http.get('http://localhost:5000/api/values').subscribe(response => {this.values = response; }, error => {console.log(error); });
+  }
+  cancelRegisterMode(registerMode: boolean) {
+    this.registerMode = registerMode;
   }
 }
