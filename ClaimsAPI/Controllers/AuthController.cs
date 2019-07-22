@@ -42,7 +42,6 @@ namespace ClaimsAPI.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login(UserForLoginDto userForLoginDto)
         {
-            throw new Exception("Exception thrown from Login");
             var userDetails = await _authRepository.Login(userForLoginDto.Username, userForLoginDto.Password);
             if (userDetails == null)
             {

@@ -8,7 +8,7 @@ export class ErrorInterceptor implements HttpInterceptor {
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         return next.handle(req).pipe(
             catchError(error => {
-                if(error.Status === 401) {
+                if (error.Status === 401) {
                     return throwError(error.statusText);
                 }
                 if ( error instanceof HttpErrorResponse ) {
@@ -35,6 +35,6 @@ export class ErrorInterceptor implements HttpInterceptor {
 
 export const ErrorInterceptorProvider = {
     provide: HTTP_INTERCEPTORS,
-    useFactory: ErrorInterceptor,
+    useClass: ErrorInterceptor,
     multi: true
-}
+};
